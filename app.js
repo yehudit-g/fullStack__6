@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-    res.send("hello get");
+    res.send("Hello World");
 });
 
 app.get('/posts', (req, res) => {
@@ -23,3 +23,5 @@ app.get('/posts/:id/comments', (req, res) => {
 // app.get('/comments?', (req, res) => {
 //     res.send("hello get");
 // });
+
+app.listen(300, () => console.log('Listening on port 3000...'))
