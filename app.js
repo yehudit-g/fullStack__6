@@ -2,9 +2,11 @@ const express = require('express');
 const app = express();
 const con = require('./db_connection');
 app.use(express.json());
-app.get('/', (req, res) => {
-    res.send("Hello World");
-});
+
+
+// app.get('/', (req, res) => {
+//     res.send("Hello World");
+// });
 
 app.get('/users/:id', (req, res) => {
     con.query(
@@ -16,13 +18,13 @@ app.get('/users/:id', (req, res) => {
         });
 });
 
-app.get('/posts?userId=:user', (req, res) => {
-    console.log("userId : " + req.params.userId);
+app.get('/posts'/*?userId=:user*/, (req, res) => {
+    console.log("userId : " + req.query.userId);
     con.query(
         'SELECT * FROM posts WHERE userId = ?',
-        [req.params.user],
+        [req.query.userId],
         function (err, results) {
-            res.send(err, results);
+            res.send(results);
         }
     );
 });
@@ -47,10 +49,10 @@ app.get('/posts/:postId/comments', (req, res) => {
     );
 });
 
-app.get('/todos?userId=:user', (req, res) => {
+app.get('/todos'/*?userId=:user'*/, (req, res) => {
     con.query(
         'SELECT * FROM todos WHERE userId = ?',
-        [req.params.user],
+        [req.query.userId],
         function (err, results) {
             res.send(results);
         }
@@ -64,7 +66,7 @@ app.post('/users', (req, res) => {
     const user = {
         id: req.body.id,
         name: req.body.name,
-        //
+        //להוסיף עוד שדות
     }
     if (!user.id) {
         return res.status(400).send('Missing user ID.');
@@ -81,16 +83,24 @@ app.post('/users', (req, res) => {
 });
 
 
-// app.post('/posts?userId=:user', (req, res) => {
-//     console.log("userId : " + req.params.userId);
-//     con.query(
-//         'SELECT * FROM posts WHERE userId = ?',
-//         [req.params.user],
-//         function(err, results) {
-//             res.send(err, results);
-//         }
-//     );
-// });
+app.post('/posts', (req, res) => {
+    //להוסיף בדיקה שהid של המשתמש קיים
+
+    const post = {
+        id:req.body.id,
+        userId:req.body.userId, 
+        title:req.body.title,
+        body:req.body.body
+    }
+
+    con.query(
+        'INSERT INTO posts SET ?',
+        [post],
+        function (err, results) {
+            res.send(results);
+        }
+    );
+});
 
 // app.post('/posts/:id', (req, res) => {
 //     con.query(
