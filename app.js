@@ -87,10 +87,10 @@ app.post('/posts', (req, res) => {
     //להוסיף בדיקה שהid של המשתמש קיים
 
     const post = {
-        id:req.body.id,
-        userId:req.body.userId, 
-        title:req.body.title,
-        body:req.body.body
+        id: req.body.id,
+        userId: req.body.userId,
+        title: req.body.title,
+        body: req.body.body
     }
 
     con.query(
@@ -102,31 +102,88 @@ app.post('/posts', (req, res) => {
     );
 });
 
-// app.post('/posts/:id', (req, res) => {
-//     con.query(
-//         'SELECT * FROM posts WHERE id = ?',
-//         [req.params.id],
-//         function(err, results) {
-//             res.send(results);
-//         }
-//     );
-// })
 
-// app.post('/posts/:postId/comments', (req, res) => {
+app.post('/comments', (req, res) => {
+    const comment = {
+        id:req.body.id,
+        postId:req.body.postId
+        //להוסיף את כל השדות
+    };
+
+    con.query(
+        'INSERT INTO comments SET ?',
+        [comment],
+        function (err, results) {
+            res.send(results);
+        }
+    );
+});
+
+app.post('/todos', (req, res) => {
+    const todo = {
+        id:req.body.id,
+        userId:req.body.userId
+        //להוסיף את כל השדות
+    };
+
+    con.query(
+        'INSERT INTO todos SET ?',
+        [todo],
+        function(err, results) {
+            res.send(results);
+        }
+    );
+});
+
+
+///////
+// app.put('/users/:id', (req, res) => {
 //     con.query(
-//         'SELECT * FROM comments WHERE postId = ?',
-//         [req.params.postId],
-//         function(err, results) {
+//         'UPDATE users SET ? WHERE id = ?',
+//         [req.params.id],
+//         function (err, results) {
+//             res.send(results);
+//         });
+// });
+
+// app.put('/posts', (req, res) => {
+//     con.query(
+//         'UPDATE posts SET ? WHERE userId = ?',
+//         [req.query.userId],
+
+//         function (err, results) {
 //             res.send(results);
 //         }
 //     );
 // });
 
-// app.post('/todos?userId=:user', (req, res) => {
+
+
+// app.put('/posts/:id', (req, res) => {
+//     con.query(
+//         'SELECT * FROM posts WHERE id = ?',
+//         [req.params.id],
+//         function (err, results) {
+//             res.send(results);
+//         }
+//     );
+// })
+
+// app.put('/posts/:postId/comments', (req, res) => {
+//     con.query(
+//         'SELECT * FROM comments WHERE postId = ?',
+//         [req.params.postId],
+//         function (err, results) {
+//             res.send(results);
+//         }
+//     );
+// });
+
+// app.put('/todos'/*?userId=:user'*/, (req, res) => {
 //     con.query(
 //         'SELECT * FROM todos WHERE userId = ?',
-//         [req.params.user],
-//         function(err, results) {
+//         [req.query.userId],
+//         function (err, results) {
 //             res.send(results);
 //         }
 //     );
