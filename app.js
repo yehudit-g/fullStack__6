@@ -66,7 +66,10 @@ app.post('/users', (req, res) => {
     const user = {
         id: req.body.id,
         name: req.body.name,
-        //להוסיף עוד שדות
+        username: req.body.username,
+        email: req.body.email,
+        address_street: req.body.address_street,
+        phone: req.body.phone
     }
     if (!user.id) {
         return res.status(400).send('Missing user ID.');
@@ -105,9 +108,11 @@ app.post('/posts', (req, res) => {
 
 app.post('/comments', (req, res) => {
     const comment = {
-        id:req.body.id,
-        postId:req.body.postId
-        //להוסיף את כל השדות
+        id: req.body.id,
+        postId: req.body.postId,
+        name: req.body.name,
+        email: req.body.email,
+        body: req.body.body
     };
 
     con.query(
@@ -121,68 +126,94 @@ app.post('/comments', (req, res) => {
 
 app.post('/todos', (req, res) => {
     const todo = {
-        id:req.body.id,
-        userId:req.body.userId
-        //להוסיף את כל השדות
+        id: req.body.id,
+        userId: req.body.userId,
+        title: req.body.title,
+        completed: req.body.completed
     };
 
     con.query(
         'INSERT INTO todos SET ?',
         [todo],
-        function(err, results) {
+        function (err, results) {
             res.send(results);
         }
     );
 });
 
 
-///////
-// app.put('/users/:id', (req, res) => {
+
+app.put('/users/:id', (req, res) => {
+    const updatedData = {
+        id: req.body.id,
+        name: req.body.name,
+        username: req.body.username,
+        email: req.body.email,
+        address_street: req.body.address_street,
+        phone: req.body.phone
+    };
+    const userId = req.query.id;
+
+    con.query(
+        'UPDATE users SET ? WHERE userId = ?',
+        [updatedData, userId],
+        function (err, results) {
+            res.send(results);
+        });
+});
+
+app.put('/posts/:id', (req, res) => {
+    const updatedData = {
+        id: req.body.id,
+        userId: req.body.userId,
+        title: req.body.title,
+        body: req.body.body
+    };
+    const postId = req.query.id;
+
+    con.query(
+        'UPDATE posts SET ? WHERE postId = ?',
+        [updatedData, postId],
+        function (err, results) {
+            res.send(results);
+        }
+    );
+});
+
+
+app.put('/posts/:postId/comments/:id', (req, res) => {
+    const updatedData = {
+        id: req.body.id,
+        postId: req.body.postId,
+        name: req.body.name,
+        email: req.body.email,
+        body: req.body.body
+    };
+    const postId = req.query.postId;
+    const id = req.query.id;
+
+    con.query(
+        'UPDATE comments SET ? WHERE postId = ? && id = ?',
+        [updatedData, postId, id],
+        function (err, results) {
+            res.send(results);
+        }
+    );
+});
+
+// app.put('/todos/:userId/:id', (req, res) => {
+//     const updatedData = {
+//         id: req.body.id,
+//         userId: req.body.userId,
+//         title: req.body.title,
+//         completed: req.body.completed
+//     };
+//     const userId = req.query.postId;
+//     const id = req.query.id;
+
 //     con.query(
-//         'UPDATE users SET ? WHERE id = ?',
-//         [req.params.id],
-//         function (err, results) {
-//             res.send(results);
-//         });
-// });
-
-// app.put('/posts', (req, res) => {
-//     con.query(
-//         'UPDATE posts SET ? WHERE userId = ?',
-//         [req.query.userId],
-
-//         function (err, results) {
-//             res.send(results);
-//         }
-//     );
-// });
-
-
-
-// app.put('/posts/:id', (req, res) => {
-//     con.query(
-//         'SELECT * FROM posts WHERE id = ?',
-//         [req.params.id],
-//         function (err, results) {
-//             res.send(results);
-//         }
-//     );
-// })
-
-// app.put('/posts/:postId/comments', (req, res) => {
-//     con.query(
-//         'SELECT * FROM comments WHERE postId = ?',
-//         [req.params.postId],
-//         function (err, results) {
-//             res.send(results);
-//         }
-//     );
-// });
-
-// app.put('/todos'/*?userId=:user'*/, (req, res) => {
-//     con.query(
-//         'SELECT * FROM todos WHERE userId = ?',
-//         [req.query.userId],
+//         'UPDATE todos SET ? WHERE userId = ? && id = ?',
+//         [updatedData, userId, id],
 //         function (err, results) {
 //             res.send(results);
 //         }
