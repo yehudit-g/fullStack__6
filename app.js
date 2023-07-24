@@ -220,6 +220,48 @@ app.put('/posts/:postId/comments/:id', (req, res) => {
 //     );
 // });
 
+//DELETE FROM customers WHERE
+
+
+app.delete('/users/:id', (req, res) => {
+    con.query(
+        'DELETE FROM users WHERE id = ?',
+        [req.params.id],
+        function (err, results) {
+            res.send(results);
+        });
+});
+
+app.delete('/posts/:id', (req, res) => {
+    con.query(
+        'DELETE FROM posts WHERE id = ?',
+        [req.params.id],
+        function (err, results) {
+            res.send(results);
+        }
+    );
+})
+
+app.delete('/posts/:postId/comments/:id', (req, res) => {
+    con.query(
+        'DELETE FROM comments WHERE postId = ? && id = ?',
+        [req.params.postId, req.params.id],
+        function (err, results) {
+            res.send(results);
+        }
+    );
+});
+
+app.delete('/todos/:id', (req, res) => {
+    con.query(
+        'DELETE FROM todos WHERE id = ?',
+        [req.query.id],
+        function (err, results) {
+            res.send(results);
+        }
+    );
+});
+
 
 
 const port = process.env.PORT || 3000
