@@ -8,18 +8,22 @@ app.use(express.json());
 //     res.send("Hello World");
 // });
 
+
+//works! send id in params
 app.get('/users/:id', (req, res) => {
     con.query(
         'SELECT * FROM users WHERE id = ?',
-        [req.params.id],
+        [req.query.id],
         function (err, results) {
             res.send(results);
             // console.log(results);
         });
 });
 
+
+//works! send uerId in params
 app.get('/posts'/*?userId=:user*/, (req, res) => {
-    console.log("userId : " + req.query.userId);
+   // console.log("userId : " + req.query.userId);
     con.query(
         'SELECT * FROM posts WHERE userId = ?',
         [req.query.userId],
@@ -29,26 +33,29 @@ app.get('/posts'/*?userId=:user*/, (req, res) => {
     );
 });
 
+//works! send id in params
 app.get('/posts/:id', (req, res) => {
     con.query(
         'SELECT * FROM posts WHERE id = ?',
-        [req.params.id],
+        [req.query.id],
         function (err, results) {
             res.send(results);
         }
     );
 })
 
+//works! send postId in params
 app.get('/posts/:postId/comments', (req, res) => {
     con.query(
         'SELECT * FROM comments WHERE postId = ?',
-        [req.params.postId],
+        [req.query.postId],
         function (err, results) {
             res.send(results);
         }
     );
 });
 
+//works! send userId in params
 app.get('/todos'/*?userId=:user'*/, (req, res) => {
     con.query(
         'SELECT * FROM todos WHERE userId = ?',
@@ -59,7 +66,7 @@ app.get('/todos'/*?userId=:user'*/, (req, res) => {
     );
 });
 
-
+//works! send JSON object in Body->row
 app.post('/users', (req, res) => {
     // const values= [req.params.id, req.params.name, req.params.username, req.params.email, req.params.address_sreet];
 
@@ -79,13 +86,13 @@ app.post('/users', (req, res) => {
         //'INSERT INTO users(id, name, username, email,  address_street ) VALUES ?',
         //[values],
         'INSERT INTO users SET ?',
-        user,
+        [user],
         function (err, results) {
             res.send(results);
         });
 });
 
-
+//works! send JSON object in Body->row
 app.post('/posts', (req, res) => {
     //להוסיף בדיקה שהid של המשתמש קיים
 
@@ -105,7 +112,7 @@ app.post('/posts', (req, res) => {
     );
 });
 
-
+//works! send JSON object in Body->row
 app.post('/comments', (req, res) => {
     const comment = {
         id: req.body.id,
@@ -124,6 +131,7 @@ app.post('/comments', (req, res) => {
     );
 });
 
+//works! send JSON object in Body->row
 app.post('/todos', (req, res) => {
     const todo = {
         id: req.body.id,
@@ -159,6 +167,7 @@ app.put('/users/:id', (req, res) => {
         [updatedData, userId],
         function (err, results) {
             res.send(results);
+            console.log("update success")
         });
 });
 
