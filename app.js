@@ -150,7 +150,7 @@ app.post('/todos', (req, res) => {
 });
 
 
-
+//works! send JSON object in Body->row, and id in query params
 app.put('/users/:id', (req, res) => {
     const updatedData = {
         id: req.body.id,
@@ -163,14 +163,19 @@ app.put('/users/:id', (req, res) => {
     const userId = req.query.id;
 
     con.query(
-        'UPDATE users SET ? WHERE userId = ?',
+        'UPDATE users SET ? WHERE id = ?',
         [updatedData, userId],
         function (err, results) {
+            if (err) {
+                console.error(err);
+                return res.status(500).send('Error updating user.');
+            }
             res.send(results);
-            console.log("update success")
+            console.log("Update success for user with ID: " + userId);
         });
 });
 
+//works! send JSON object in Body->row, and id in query params
 app.put('/posts/:id', (req, res) => {
     const updatedData = {
         id: req.body.id,
@@ -181,7 +186,7 @@ app.put('/posts/:id', (req, res) => {
     const postId = req.query.id;
 
     con.query(
-        'UPDATE posts SET ? WHERE postId = ?',
+        'UPDATE posts SET ? WHERE id = ?',
         [updatedData, postId],
         function (err, results) {
             res.send(results);
@@ -189,7 +194,7 @@ app.put('/posts/:id', (req, res) => {
     );
 });
 
-
+//works! send JSON object in Body->row, and id+postId in query params
 app.put('/posts/:postId/comments/:id', (req, res) => {
     const updatedData = {
         id: req.body.id,
@@ -210,28 +215,28 @@ app.put('/posts/:postId/comments/:id', (req, res) => {
     );
 });
 
-// app.put('/todos/:userId/:id', (req, res) => {
-//     const updatedData = {
-//         id: req.body.id,
-//         userId: req.body.userId,
-//         title: req.body.title,
-//         completed: req.body.completed
-//     };
-//     const userId = req.query.postId;
-//     const id = req.query.id;
+//works! send JSON object in Body->row, and id+postId in query params
+app.put('/todos/:userId/:id', (req, res) => {
+   const updatedData = {
+        id: req.body.id,
+        userId: req.body.userId,
+        title: req.body.title,
+        completed: req.body.completed
+    };
+    const userId = req.query.userId;
+    const id = req.query.id;
 
-//     con.query(
-//         'UPDATE todos SET ? WHERE userId = ? && id = ?',
-//         [updatedData, userId, id],
-//         function (err, results) {
-//             res.send(results);
-//         }
-//     );
-// });
+    con.query(
+        'UPDATE todos SET ? WHERE userId = ? && id = ?',
+        [updatedData, userId, id],
+        function (err, results) {
+            res.send(results);
+        }
+    );
+});
 
-//DELETE FROM customers WHERE
-
-
+//----delete
+//works! send id in params-> Path_Variables 
 app.delete('/users/:id', (req, res) => {
     con.query(
         'DELETE FROM users WHERE id = ?',
@@ -241,6 +246,7 @@ app.delete('/users/:id', (req, res) => {
         });
 });
 
+//works! send id in params-> Path_Variables 
 app.delete('/posts/:id', (req, res) => {
     con.query(
         'DELETE FROM posts WHERE id = ?',
@@ -251,6 +257,7 @@ app.delete('/posts/:id', (req, res) => {
     );
 })
 
+//works! send postId and id in params-> Path_Variables 
 app.delete('/posts/:postId/comments/:id', (req, res) => {
     con.query(
         'DELETE FROM comments WHERE postId = ? && id = ?',
@@ -261,10 +268,11 @@ app.delete('/posts/:postId/comments/:id', (req, res) => {
     );
 });
 
+//works! send id in params-> Path_Variables 
 app.delete('/todos/:id', (req, res) => {
     con.query(
         'DELETE FROM todos WHERE id = ?',
-        [req.query.id],
+        [req.params.id],
         function (err, results) {
             res.send(results);
         }
