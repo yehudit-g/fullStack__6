@@ -1,0 +1,40 @@
+.divTodosSingleF {
+    display: inline-flex;
+    align-items:center;
+    justify-content:center;
+    text-align: center;
+    flex-direction: row;
+    padding: 10px;
+    margin: 10px;
+    border:solid 2px rgb(237, 0, 0);
+    height: 50px;
+    width: 46%;
+    font-size: large;
+    font-weight:500;
+}
+
+.divTodosSingleF:hover {
+    background-color: rgb(247, 247, 247);
+}
+
+
+.divTodosSingleT {
+    display: inline-flex;
+    align-items:center;
+    justify-content:center;
+    text-align: center;
+    flex-direction: row;
+    padding: 10px;
+    margin: 10px;
+    border:solid 2px rgb(0, 146, 19);
+    height: 50px;
+    width: 46%;
+    font-size: large;
+    font-weight:500;
+}
+
+.divTodosSingleT:hover {
+    background-color: rgb(247, 247, 247);
+}
+
+
