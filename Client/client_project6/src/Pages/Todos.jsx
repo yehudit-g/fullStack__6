@@ -44,6 +44,9 @@ export default function Todos() {
     useEffect(() => {
         getTodos()
     }, [currentUser])
+
+
+    const handleClickAddTodo=(e)=>{}
     
     return (
         <>
@@ -74,7 +77,40 @@ export default function Todos() {
             listTodos.sort((a, b) => a["completed"] > b["completed"] ? 1 : -1).map(todo => {
                 return <TodosSingle title={todo.title} completed={todo.completed} id={todo.id}/>
             })
-          }    
+          }  
+
+
+          {<div className="buttonItem">
+                <Popup trigger={<button className="iconbutt" ><BsFillPencilFill /></button>} 
+                model nested>
+                {
+                    close => (
+                        <div className=" divPopup">
+                            <div>
+                                <button onClick=
+                                    {() => close()}>
+                                        X
+                                </button>
+                            </div>
+
+                            <div className=" formPopup">
+                                <form onSubmit={(e) => { handleClickAddTodo(e); close();}}>
+                                    <div className="input-container">
+                                        <h2>New Todo</h2>
+                                    </div>
+                                    <div className="input-container">
+                                        <label>Title: </label>
+                                        <input type="text" name="ftitle" placeholder={title} />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    )
+                }
+                </Popup>
+                
+            </div> 
+            }  
         </>
     )
 }
