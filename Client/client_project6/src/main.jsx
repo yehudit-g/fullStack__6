@@ -5,10 +5,8 @@ import { BrowserRouter, Routes, Route, Link, Navigate} from 'react-router-dom';
 import Login from './Pages/Login';
 import UserLayout from './Components/UserLayout';
 import MainPage from './Pages/MainPage';
-//import Albums from './Pages/Users/Albums/Albums';
-//import Photos from './Pages/Users/Albums/Photos';
-import Posts from './Pages/Posts';
-import Comments from './Pages/Comments';
+import Posts from './Pages/Posts/Posts';
+import Comments from './Pages/Posts/Comments';
 import Todos from './Pages/Todos';
 import Info from './Pages/info';
 
@@ -31,8 +29,6 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="users/:id" element={<UserLayout />}>
             <Route index element={<MainPage />} />
-            {/* <Route path="albums" element={<Albums />} /> */}
-            {/* <Route path="albums/:idAlbums/photos" element={<Photos />} /> */}
             <Route path="posts" element={<Posts />}/>
             <Route path="posts/:idPost/comments" element={<Comments />} />
             <Route path="todos" element={<Todos />} />

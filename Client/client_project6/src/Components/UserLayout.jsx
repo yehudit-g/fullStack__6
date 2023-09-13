@@ -17,22 +17,6 @@ export default function UserLayout() {
         <>
             <nav className="mainNav">
                 <h2>{currentUser.name}:</h2>   
-                {/* <NavLink
-                    className={"navLink"}
-                    to="."
-                    end
-                    style={({ isActive }) => isActive ? activeStyles : null}
-                >
-                    home
-                </NavLink> */}
-
-                {/* <NavLink
-                    className={"navLink"}
-                    to="albums"
-                    style={({ isActive }) => isActive ? activeStyles : null}
-                >
-                    Albums
-                </NavLink> */}
 
                 <NavLink
                     className={"navLink"}
@@ -72,7 +56,7 @@ export default function UserLayout() {
  
             <Outlet />
 
-            <footer>&#169; rivki & Tirtza 2023</footer>
+            <footer>&#169; Yehudit & Tirtza 2023</footer>
         </>
     )
 }

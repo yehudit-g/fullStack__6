@@ -30,7 +30,7 @@ export default function Todos() {
 
     const getTodos = async () => {
         try {
-            const response = await fetch('https://jsonplaceholder.typicode.com/todos?userId=' + currentUser.id);
+            const response = await fetch('http://localhost:3001/todos?userId=' + currentUser.id);
             if (response.ok) {
               const jsonResponse = await response.json();
               setListTodos(jsonResponse);
@@ -39,7 +39,7 @@ export default function Todos() {
           } catch (error) {
             console.log(error);
           }
-    }
+        }
 
     useEffect(() => {
         getTodos()

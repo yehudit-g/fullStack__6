@@ -14,16 +14,19 @@ export default function Login() {
     pass: "invalid password"
   };
 
-  const getUsers = async () => {
+
+  const getUser = async (uname, pass)  => {
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/users');
+      //לאיזו טבלה השאילתא הולכת?טבלת משתמשים סיסמאות או משתמשים?
+      const response = await fetch(`http://localhost:3001/users?username=${uname}&password=${pass}`);
       if (response.ok) {
         const jsonResponse = await response.json();
         return jsonResponse;
       }
-      throw new Error('Request failed');
+      throw new Error('Request failed of login');
     } catch (error) {
-      console.log(error);
+      console.log("Error:", error);
+       return null
     }
   }
 
@@ -32,9 +35,8 @@ export default function Login() {
 
     var { uname, pass } = document.forms[0];
 
-    let users = await getUsers();
-    const userData = users.find((user) => user.username === uname.value);
-    
+    let userData = await getUser(uname.value, pass.value);
+
     if (userData) {
       if (userData.address.geo.lat.slice(-4) !== pass.value) {
         setErrorMessages({ name: "pass", message: errors.pass });
