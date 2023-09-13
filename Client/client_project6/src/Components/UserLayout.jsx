@@ -26,13 +26,13 @@ export default function UserLayout() {
                     home
                 </NavLink> */}
 
-                <NavLink
+                {/* <NavLink
                     className={"navLink"}
                     to="albums"
                     style={({ isActive }) => isActive ? activeStyles : null}
                 >
                     Albums
-                </NavLink>
+                </NavLink> */}
 
                 <NavLink
                     className={"navLink"}

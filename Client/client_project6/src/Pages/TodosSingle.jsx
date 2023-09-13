@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import "../../Css/Todos.css";
+import "../Css/Todos.css";
 
 export default function TodosSingle(props) {
     const [title, setTitle] = useState(props.title)

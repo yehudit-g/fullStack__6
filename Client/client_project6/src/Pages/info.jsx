@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { AiOutlinePhone, AiOutlineMail } from 'react-icons/ai';
 import { BsPerson, BsFillPinMapFill } from 'react-icons/bs';
 import { TbWorld } from 'react-icons/tb';
-import "../../Css/Info.css";
+import "../Css/info.css";
 
 export default function Info() {
 
