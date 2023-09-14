@@ -30,7 +30,7 @@ export default function Todos() {
 
     const getTodos = async () => {
         try {
-            const response = await fetch('http://localhost:3001/todos?userId=' + currentUser.id);
+            const response = await fetch('http://localhost:3000/todos?userId=' + currentUser.id);
             if (response.ok) {
               const jsonResponse = await response.json();
               setListTodos(jsonResponse);
@@ -79,7 +79,7 @@ export default function Todos() {
             })
           }  
 
-
+        {/* 
           {<div className="buttonItem">
                 <Popup trigger={<button className="iconbutt" ><BsFillPencilFill /></button>} 
                 model nested>
@@ -110,7 +110,8 @@ export default function Todos() {
                 </Popup>
                 
             </div> 
-            }  
+            }   */
+          }
         </>
     )
 }

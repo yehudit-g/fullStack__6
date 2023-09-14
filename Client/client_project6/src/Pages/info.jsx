@@ -15,7 +15,7 @@ export default function Info() {
             <h2><AiOutlinePhone />{currentUser.phone}</h2>
             <h2><AiOutlineMail />{currentUser.email}</h2>
             <h2><TbWorld />{currentUser.website}</h2>
-            <h2><BsFillPinMapFill />{currentUser.address.suite}, {currentUser.address.street}, {currentUser.address.city}, {currentUser.address.zipcode}</h2>
+            <h2><BsFillPinMapFill />{currentUser.address_suite}, {currentUser.address_street}, {currentUser.address_city}, {currentUser.address_zipcode}</h2>
         </div>
     )
 }

@@ -19,7 +19,7 @@ export default function TodosSingle(props) {
                 <input type="checkBox" id="doneTodos" checked={completed} onClick={handleClick}/>
                 <label for="doneTodos">{title}</label>
             </div>
-            {<div className="buttonItem">
+            {/* {<div className="buttonItem">
                 <Popup trigger={<button className="iconbutt" ><BsFillPencilFill /></button>} 
                 model nested>
                 {
@@ -53,7 +53,7 @@ export default function TodosSingle(props) {
                 </Popup>
                 <button className="iconbutt" onClick={handleClickDelete}><AiFillDelete /></button> 
 
-            </div> 
+            </div>  }*/
             }  
         </>
     )

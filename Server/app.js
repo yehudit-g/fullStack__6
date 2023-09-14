@@ -1,8 +1,9 @@
 const express = require('express');
-const app = express();
+const cors = require('cors');
 const con = require('./db_connection');
+const app = express();
 app.use(express.json());
-
+app.use(cors());
 
 // app.get('/', (req, res) => {
 //     res.send("Hello World");
@@ -18,6 +19,27 @@ app.get('/users/:id', (req, res) => {
             res.send(results);
             // console.log(results);
         });
+});
+
+app.get('/users', (req, res) => {
+
+    let username = req.query.username;
+    let password = req.query.password;
+  
+    const query = `SELECT * FROM users INNER JOIN users_passwords as pass WHERE users.id=pass.userId AND users.username='${username}' 
+    AND pass.password='${password}'`
+  
+    con.query(query, (err, results) => {
+            if (err) {
+              console.error('Error in request execution', err);
+              return res.status(500).send({ error: 'An error occurred while retrieving user details.' });
+            }
+            if (results.length === 0) {
+              return res.status(404).send({ error: 'user not found' });
+            }
+            res.status(200).send(results);
+          });
+
 });
 
 

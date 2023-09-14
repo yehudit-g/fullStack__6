@@ -1,5 +1,5 @@
 import React, {useState } from "react"
-import "../../../Css/Posts.css";
+import "../../Css/Posts.css";
 
 export default function CommentsSingle(props) {
     const [name, setName] = useState(props.name)

@@ -1,6 +1,6 @@
 import React, {useState } from "react"
 import { BsBoxArrowUpLeft, BsChatDots } from 'react-icons/bs';
-import "../../../Css/Posts.css";
+import "../../Css/Posts.css";
 import {Link, Navigate} from "react-router-dom"
 
 export default function PostSingle(props) {

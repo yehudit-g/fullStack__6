@@ -8,6 +8,7 @@ export default function Login() {
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [idUser, setIdUser] = useState(0)
+  const [nameUser, setNameUser] = useState(0)
 
   const errors = {
     uname: "invalid username",
@@ -18,7 +19,7 @@ export default function Login() {
   const getUser = async (uname, pass)  => {
     try {
       //לאיזו טבלה השאילתא הולכת?טבלת משתמשים סיסמאות או משתמשים?
-      const response = await fetch(`http://localhost:3001/users?username=${uname}&password=${pass}`);
+      const response = await fetch(`http://localhost:3000/users?username=${uname}&password=${pass}`);
       if (response.ok) {
         const jsonResponse = await response.json();
         return jsonResponse;
@@ -29,7 +30,9 @@ export default function Login() {
        return null
     }
   }
-
+ 
+   
+   
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -38,16 +41,13 @@ export default function Login() {
     let userData = await getUser(uname.value, pass.value);
 
     if (userData) {
-      if (userData.address.geo.lat.slice(-4) !== pass.value) {
-        setErrorMessages({ name: "pass", message: errors.pass });
-      } else {
         setIsSubmitted(true);
-        localStorage.setItem('currentUser', JSON.stringify(userData));
+        localStorage.setItem('currentUser', JSON.stringify(userData[0]));
         setIdUser(userData.id)
+        setNameUser(userData[0].username)
+      } else {
+        setErrorMessages({ name: "uname", message: errors.uname });
       }
-    } else {
-      setErrorMessages({ name: "uname", message: errors.uname });
-    }
   };
 
   // Generate JSX code for error message

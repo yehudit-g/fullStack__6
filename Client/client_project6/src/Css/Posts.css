@@ -1,0 +1,89 @@
+.divPostAlone {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.divPost {
+    align-items:center;
+    justify-content:center;
+    text-align: center;
+    display: inline-flex;
+    flex-direction: row;
+    margin: 5px;
+    height: 250px;
+    width: 47%;
+    border:solid 2px rgb(0, 0, 0);
+}
+
+.divPost:hover {
+    background-color: rgb(247, 247, 247);
+}
+
+.divPostIcons *{
+    width: 25px;
+    height: 25px;
+}
+
+.divPostIconsS {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.divPostIconsS:hover {
+    text-decoration: none;
+    color: rgb(10, 42, 255);
+}
+
+.divPostAlone h3 {
+    color: blue;
+}
+
+.divPostAlone * {
+    padding: 10px 15px;
+}
+
+.divPostAlone p {
+    padding: 10px 35px;
+}
+
+.divPostComent {
+    display: inline-flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    text-align: center;
+    margin: 5px 5px;
+    height: auto;
+    width: 100%;
+    background-color: rgba(232, 232, 232, 0.2);
+    border: 1px solid  rgba(232, 232, 232, 0.4);
+}
+
+.divPostComent:hover {
+    background-color: rgba(232, 232, 232, 0.8);
+}
+
+
+.divPostComent * {
+    padding: 0px 15px;
+}
+
+.divPostComent h3 {
+    color: rgb(0, 0, 0);
+    font-weight: 800;
+    
+}
+
+.divPostComent p {
+    padding: 0px 35px;
+}
+
+.commentlink {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.commentlink:hover {
+    text-decoration: none;
+    color: rgb(10, 42, 255);
+}
