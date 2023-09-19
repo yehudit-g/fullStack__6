@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react"
 import TodosSingle from "./TodosSingle"
 
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
 export default function Todos() {
 
     const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('currentUser')) ?? undefined)
@@ -79,18 +82,13 @@ export default function Todos() {
             })
           }  
 
-        {/* 
+        
           {<div className="buttonItem">
-                <Popup trigger={<button className="iconbutt" ><BsFillPencilFill /></button>} 
-                model nested>
-                {
-                    close => (
+                <Popup trigger={<button className="iconbutt" >add todos</button>} model nested>
+                { close => (
                         <div className=" divPopup">
                             <div>
-                                <button onClick=
-                                    {() => close()}>
-                                        X
-                                </button>
+                                <button onClick={() => close()}> X </button>
                             </div>
 
                             <div className=" formPopup">
@@ -110,8 +108,8 @@ export default function Todos() {
                 </Popup>
                 
             </div> 
-            }   */
-          }
+            }   
+          
         </>
     )
 }

@@ -70,7 +70,7 @@ app.get('/posts/:id', (req, res) => {
 app.get('/posts/:postId/comments', (req, res) => {
     con.query(
         'SELECT * FROM comments WHERE postId = ?',
-        [req.query.postId],
+        [req.params.postId],
         function (err, results) {
             res.send(results);
         }

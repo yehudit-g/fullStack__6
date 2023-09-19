@@ -9,8 +9,22 @@
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     background-color: #f8f9fd;
   }
+
+  .signin {
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    height: 1050px;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    background-color: #f8f9fd;
+  }
   
   input[type="text"],
+  input[type="tel"],
+  input[type="email"],
   input[type="password"] {
     height: 40px;
     width: 500px;
@@ -82,4 +96,11 @@
     flex-direction: column;
     gap: 8px;
     margin: 10px;
+  }
+
+  .linkDiv {
+    font-size: medium;
+    font-weight:bold;
+    text-decoration: none;
+    color:#2a31ff
   }

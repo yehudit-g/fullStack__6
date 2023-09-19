@@ -12,8 +12,8 @@ export default function Comments() {
 
     const getComments = async () => {
         try {
-            const response = await fetch('http://localhost:3001/posts/' + idPost + '/comments');
-            if (response.ok) {
+          const response = await fetch(`http://localhost:3000/posts/${idPost}/comments`);
+          if (response.ok) {
               const jsonResponse = await response.json();
               setListComments(jsonResponse);
             }

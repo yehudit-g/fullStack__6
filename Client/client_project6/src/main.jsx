@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Link, Navigate} from 'react-router-dom';
 
 import Login from './Pages/Login';
+import SignIn from './Pages/SignIn';
 import UserLayout from './Components/UserLayout';
 import MainPage from './Pages/MainPage';
 import Posts from './Pages/Posts/Posts';
@@ -27,6 +28,7 @@ function App() {
       <Routes>
           <Route path='/' element={calculationOnePage()} />
           <Route path="login" element={<Login />} />
+          <Route path="register" element={<SignIn />} />
           <Route path="users/:id" element={<UserLayout />}>
             <Route index element={<MainPage />} />
             <Route path="posts" element={<Posts />}/>

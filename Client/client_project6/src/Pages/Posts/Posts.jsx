@@ -8,7 +8,7 @@ export default function Post() {
 
     const getPosts = async () => {
         try {
-            const response = await fetch('http://localhost:3001/posts?userId=' + currentUser.id);
+            const response = await fetch('http://localhost:3000/posts?userId=' + currentUser.id);
             if (response.ok) {
               const jsonResponse = await response.json();
               setListPosts(jsonResponse);

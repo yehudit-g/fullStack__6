@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import {Navigate} from "react-router-dom"
+import { Link } from 'react-router-dom';
 
-import "../Css/Login.css";
+
+import "../Css/LogSign.css";
 
 export default function Login() {
   const [errorMessages, setErrorMessages] = useState({});
@@ -80,7 +82,7 @@ export default function Login() {
   return (
     <div className="login">
       <div className="login-form">
-        <div className="title">Sign In</div>
+        <div className="title">Log In / <Link className="linkDiv" to='/register'>(Sign In)</Link></div>
         {isSubmitted ? <Navigate to={'/users/' + idUser}/> : renderForm}
       </div>
     </div>
