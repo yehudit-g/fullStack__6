@@ -3,11 +3,14 @@ import TodosSingle from "./TodosSingle"
 
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import '../Css/Todos.css';
+
 
 export default function Todos() {
 
     const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('currentUser')) ?? undefined)
     const [listTodos, setListTodos] = useState([])
+    const [isFormVisible, setFormVisible] = useState(false);
 
     const [sortByField, setSortByField] = useState("arranged (id)");
 
@@ -47,12 +50,67 @@ export default function Todos() {
     useEffect(() => {
         getTodos()
     }, [currentUser])
-
-
-    const handleClickAddTodo=(e)=>{}
     
+    const setTodo = async (newTodo) => {
+      try {
+        const response = await fetch('http://localhost:3000/todos', {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newTodo),
+        });
+        if (response.ok) {
+          const jsonResponse = await response.json();
+          return jsonResponse;
+        }
+        throw new Error('Request failed');
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  
+    const handleClickAddTodo= async (event)=>{
+      event.preventDefault();
+      var {ftitle, fcheckbox} = document.forms[0];
+      // if(fcheckbox.value=="on")
+      //   var completed=true;
+      // else 
+      //   completed=false;
+
+    const newTodo = {
+      'userId': currentUser.id,
+      'title': ftitle.value,
+      'completed': fcheckbox.value,
+    }
+
+    let TodoData = await setTodo(newTodo);
+    toggleForm()
+    await getTodos()
+    }
+
+    const toggleForm = () => {
+      setFormVisible(!isFormVisible);
+    };
+    
+    
+
     return (
         <>
+          <div>
+            <button onClick={toggleForm}>+ Add Todo </button>
+            {isFormVisible && (
+              <form onSubmit={(e) => { handleClickAddTodo(e); close();}} className="formAddTodo">
+                  <input type="checkbox" name="fcheckbox"/>
+                  <label>Title: </label>
+                  <input type="text" name="ftitle" />
+                <button type="submit">Submit</button>
+              </form>
+            )}
+          </div>
+
           <span>Sort By</span> <br></br>
           <select defaultValue={'arranged (id)'} onChange={(e) => sortBy(e.target.value)}>
             <option value="arranged (id)" disabled>None</option>
@@ -83,7 +141,7 @@ export default function Todos() {
           }  
 
         
-          {<div className="buttonItem">
+          {/* {<div className="buttonItem">
                 <Popup trigger={<button className="iconbutt" >add todos</button>} model nested>
                 { close => (
                         <div className=" divPopup">
@@ -108,7 +166,7 @@ export default function Todos() {
                 </Popup>
                 
             </div> 
-            }   
+            }    */}
           
         </>
     )
