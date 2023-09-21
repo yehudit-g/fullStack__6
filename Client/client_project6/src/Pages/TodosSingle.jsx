@@ -7,18 +7,19 @@ export default function TodosSingle(props) {
     const [title, setTitle] = useState(props.title)
     const [completed, setCompleted] = useState(props.completed)
     const [id, setId] = useState(props.id)
-    console.log(title + ' -> ' + completed)
-    const handleClick = () => {
-        setCompleted(!!!completed)
-    }
+    const [isFormVisible, setFormVisible] = useState(false);
 
+    const handleClick = () => {
+        setCompleted(!completed)
+    }
    
       const handleClickUpdate= async (event)=>{
         event.preventDefault();
         var {ftitle, fcheckbox} = document.forms[0];
 
         const fnewTitle = ftitle.value? ftitle.value: title
-        const newCompleted = fcheckbox.value? fcheckbox.value: completed
+        const newCompleted = fcheckbox.checked ? true : false;
+        //const newCompleted = fcheckbox.value? fcheckbox.value: completed
 
       const newTodo = {
         'id': id,
@@ -26,6 +27,11 @@ export default function TodosSingle(props) {
         'title': fnewTitle,
         'completed': newCompleted,
       }
+
+      console.log('id'+ id+
+      'userId'+ currentUser.id+
+      'title'+ fnewTitle+
+      'completed'+ newCompleted)
   
       try {
         const response = await fetch(`http://localhost:3000/todos${id}`, {
@@ -54,62 +60,34 @@ export default function TodosSingle(props) {
         setFormVisible(!isFormVisible);
       };
 
+      const handleCheckboxChange=(e)=>{
+        setCompleted(!completed);
+      };
+
  
       return (
         <>
             <div className={completed?  "divTodosSingleT": "divTodosSingleF"}>
-                <input type="checkBox" id="doneTodos" checked={completed} onClick={handleClick}/>
-                <label for="doneTodos">{title}</label>
+              {!isFormVisible && (
+                <>
+                  <input type="checkBox" id="doneTodos" checked={completed} onClick={handleClick}/>
+                  <label for="doneTodos">{title}</label>
+                  <button onClick={toggleForm}> Update </button>
+                </>
+              )}
 
-                <div>
-                <button onClick={toggleForm}> Update Todo </button>
+              <div>                
                 {isFormVisible && (
-                <form onSubmit={(e) => { handleClickUpdate(e);}} className="formUpdateTodo">
-                  <input type="checkbox" name="fcheckbox" placeholder={completed}/>
-                  <label>Title: </label>
-                  <input type="text" name="ftitle" placeholder={title}/>
-                <button type="submit">Submit</button>
-                </form>
-                 )}
+                  <form onSubmit={(e) => { handleClickUpdate(e);}} className="formUpdateTodo">
+                    <input type="checkbox" name="fcheckbox" placeholder={completed} checked={completed}
+                       onChange={(e) => handleCheckboxChange(e)} />
+                    {/* <label>Title: </label> */}
+                    <input type="text" name="ftitle" placeholder={title}/>
+                    <button type="submit">Submit</button>
+                  </form>
+                )}
                 </div>
             </div>
-
-            {/* {<div className="buttonItem">
-                <Popup trigger={<button className="iconbutt" ><BsFillPencilFill /></button>} 
-                model nested>
-                {
-                    close => (
-                        <div className=" divPopup">
-                            <div>
-                                <button onClick=
-                                    {() => close()}>
-                                        X
-                                </button>
-                            </div>
-
-                            <div className=" formPopup">
-                                <form onSubmit={(e) => { handleClickUpdateTodo(e); close();}}>
-                                    <div className="input-container">
-                                        <h2>Update {id} Todo</h2>
-                                    </div>
-                                    <div className="input-container">
-                                        <label>Title: </label>
-                                        <input type="text" name="ftitle" placeholder={title} />
-                                    </div>
-                                    <div className="input-container">
-                                        <label>completed: </label>
-                                        <input type="checkbox" name="fcomplete" placeholder={completed} />
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    )
-                }
-                </Popup>
-                <button className="iconbutt" onClick={handleClickDelete}><AiFillDelete /></button> 
-
-            </div>  }*/
-            }  
-        </>
-    )
+          </>
+        )
 }
