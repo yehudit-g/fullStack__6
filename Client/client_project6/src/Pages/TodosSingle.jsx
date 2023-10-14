@@ -13,13 +13,13 @@ export default function TodosSingle(props) {
         setCompleted(!completed)
     }
    
-      const handleClickUpdate= async (event)=>{
-        event.preventDefault();
-        var {ftitle, fcheckbox} = document.forms[0];
+    const handleClickUpdate = async (event)=>{
+      event.preventDefault();
+      var {ftitle, fcheckbox} = document.forms[0];
 
-        const fnewTitle = ftitle.value? ftitle.value: title
-        const newCompleted = fcheckbox.checked ? true : false;
-        //const newCompleted = fcheckbox.value? fcheckbox.value: completed
+      const fnewTitle = ftitle.value? ftitle.value: title
+      const newCompleted = fcheckbox.checked ? true : false;
+      //const newCompleted = fcheckbox.value? fcheckbox.value: completed
 
       const newTodo = {
         'id': id,
@@ -32,9 +32,9 @@ export default function TodosSingle(props) {
       'userId'+ currentUser.id+
       'title'+ fnewTitle+
       'completed'+ newCompleted)
-  
+
       try {
-        const response = await fetch(`http://localhost:3000/todos${id}`, {
+        const response = await fetch(`http://localhost:3000/todos/${userId}/${id}`, {
           method: "PUT",
           mode: "cors",
           headers: {
@@ -54,40 +54,40 @@ export default function TodosSingle(props) {
       
       toggleForm()
       //await getTodos()   רענון עמוד
-      }
-  
-      const toggleForm = () => {
-        setFormVisible(!isFormVisible);
-      };
+    }
 
-      const handleCheckboxChange=(e)=>{
-        setCompleted(!completed);
-      };
+    const toggleForm = () => {
+      setFormVisible(!isFormVisible);
+    };
 
- 
-      return (
-        <>
-            <div className={completed?  "divTodosSingleT": "divTodosSingleF"}>
-              {!isFormVisible && (
-                <>
-                  <input type="checkBox" id="doneTodos" checked={completed} onClick={handleClick}/>
-                  <label for="doneTodos">{title}</label>
-                  <button onClick={toggleForm}> Update </button>
-                </>
+    const handleCheckboxChange=(e)=>{
+      setCompleted(!completed);
+    };
+
+
+    return (
+      <>
+          <div className={completed?  "divTodosSingleT": "divTodosSingleF"}>
+            {!isFormVisible && (
+              <>
+                <input type="checkBox" id="doneTodos" checked={completed} onClick={handleClick}/>
+                <label for="doneTodos">{title}</label>
+                <button onClick={toggleForm}> Update </button>
+              </>
+            )}
+
+            <div>                
+              {isFormVisible && (
+                <form onSubmit={(e) => { handleClickUpdate(e);}} className="formUpdateTodo">
+                  <input type="checkbox" name="fcheckbox" placeholder={completed} checked={completed}
+                      onChange={(e) => handleCheckboxChange(e)} />
+                  {/* <label>Title: </label> */}
+                  <input type="text" name="ftitle" placeholder={title}/>
+                  <button type="submit">Submit</button>
+                </form>
               )}
-
-              <div>                
-                {isFormVisible && (
-                  <form onSubmit={(e) => { handleClickUpdate(e);}} className="formUpdateTodo">
-                    <input type="checkbox" name="fcheckbox" placeholder={completed} checked={completed}
-                       onChange={(e) => handleCheckboxChange(e)} />
-                    {/* <label>Title: </label> */}
-                    <input type="text" name="ftitle" placeholder={title}/>
-                    <button type="submit">Submit</button>
-                  </form>
-                )}
-                </div>
-            </div>
-          </>
-        )
+              </div>
+          </div>
+        </>
+      )
 }
