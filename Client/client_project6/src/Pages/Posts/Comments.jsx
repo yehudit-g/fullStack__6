@@ -60,7 +60,7 @@ export default function Comments() {
       'body': fbody.value
       }
 
-      let CommentData = await setComment(newComment);
+      let ComentData = await setComment(newComment);
       toggleForm()
       await getComments()
     }
