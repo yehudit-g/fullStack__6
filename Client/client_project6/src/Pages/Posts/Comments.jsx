@@ -7,7 +7,8 @@ export default function Comments() {
 
     const [listComments, setListComments] = useState([])
     const {idPost} = useParams()
-    
+    const [isFormVisible, setFormVisible] = useState(false);
+
     const [url, setUrl] = useState('../posts')
 
     const getComments = async () => {
@@ -27,9 +28,67 @@ export default function Comments() {
         getComments()
     }, [])
 
-    
+    const setComment = async (newComment) => {
+      try {
+        const response = await fetch('http://localhost:3000/comments', {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newComment),
+        });
+        if (response.ok) {
+          const jsonResponse = await response.json();
+          return jsonResponse;
+        }
+        throw new Error('Request failed');
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  
+    const handleClickAddComment= async (event)=>{
+      event.preventDefault();
+      var {ftitle, fbody, fEmail} = document.forms[0];
+
+      const newComment = {
+      'PostId': idPost,
+      'name': ftitle.value,
+      'email': fEmail.value,
+      'body': fbody.value
+      }
+
+      let CommentData = await setComment(newComment);
+      toggleForm()
+      await getComments()
+    }
+
+    const toggleForm = () => {
+      setFormVisible(!isFormVisible);
+    };
+
+
     return (
         <>
+          <div>
+            <button onClick={toggleForm}>+ Add Comment </button>
+            {isFormVisible && (
+              <form onSubmit={(e) => { handleClickAddComment(e); close();}} className="formAddComment">
+                  <label>Title: </label>
+                  <input type="text" name="ftitle" />
+                  <br></br>
+                  <label>Body: </label>
+                  <input type="text" name="fbody" />
+                  <br></br>
+                  <label>Email: </label>
+                  <input type="text" name="fEmail" />
+                <button type="submit">Submit</button>
+              </form>
+            )}
+          </div>
+
         <Link className="commentlink" to={url}><BsArrowLeftCircle /></Link>
          {listComments &&
             listComments.map(comment => {

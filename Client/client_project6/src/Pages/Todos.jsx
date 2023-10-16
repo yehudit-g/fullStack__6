@@ -80,11 +80,11 @@ export default function Todos() {
       // else 
       //   completed=false;
 
-    const newTodo = {
+      const newTodo = {
       'userId': currentUser.id,
       'title': ftitle.value,
       'completed': fcheckbox.value,
-    }
+      }
 
     let TodoData = await setTodo(newTodo);
     toggleForm()
