@@ -54,7 +54,7 @@ export default function Comments() {
       var {ftitle, fbody, fEmail} = document.forms[0];
 
       const newComment = {
-      'PostId': idPost,
+      'postId': idPost,
       'name': ftitle.value,
       'email': fEmail.value,
       'body': fbody.value
