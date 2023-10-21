@@ -13,6 +13,7 @@ export default function TodosSingle(props) {
         setCompleted(!completed)
     }
    
+    //--update--
     const handleClickUpdate = async (event)=>{
       event.preventDefault();
       var {ftitle, fcheckbox} = document.forms[0];
@@ -34,7 +35,7 @@ export default function TodosSingle(props) {
       'completed'+ newCompleted)
 
       try {
-        const response = await fetch(`http://localhost:3000/todos/${userId}/${id}`, {
+        const response = await fetch(`http://localhost:3000/todos/${currentUser.id}/${id}`, {
           method: "PUT",
           mode: "cors",
           headers: {
