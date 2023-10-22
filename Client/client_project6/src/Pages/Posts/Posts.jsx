@@ -45,6 +45,7 @@ export default function Post() {
       }
     }
   
+    //--add--
     const handleClickAddPost= async (event)=>{
       event.preventDefault();
       var {ftitle, fbody} = document.forms[0];

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import "../Css/Todos.css";
+import { BsFillPencilFill } from 'react-icons/bs';
 
 export default function TodosSingle(props) {
     const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('currentUser')) ?? undefined)
@@ -73,7 +74,7 @@ export default function TodosSingle(props) {
               <>
                 <input type="checkBox" id="doneTodos" checked={completed} onClick={handleClick}/>
                 <label for="doneTodos">{title}</label>
-                <button onClick={toggleForm}> Update </button>
+                <button onClick={toggleForm}> <BsFillPencilFill />  </button>
               </>
             )}
 

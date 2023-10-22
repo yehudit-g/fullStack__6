@@ -182,7 +182,7 @@ app.put('/users/:id', (req, res) => {
         address_street: req.body.address_street,
         phone: req.body.phone
     };
-    const userId = req.query.id;
+    const userId = req.params.id;
 
     con.query(
         'UPDATE users SET ? WHERE id = ?',
@@ -205,7 +205,7 @@ app.put('/posts/:id', (req, res) => {
         title: req.body.title,
         body: req.body.body
     };
-    const postId = req.query.id;
+    const postId = req.params.id;
 
     con.query(
         'UPDATE posts SET ? WHERE id = ?',
@@ -225,8 +225,8 @@ app.put('/posts/:postId/comments/:id', (req, res) => {
         email: req.body.email,
         body: req.body.body
     };
-    const postId = req.query.postId;
-    const id = req.query.id;
+    const postId = req.params.postId;
+    const id = req.params.id;
 
     con.query(
         'UPDATE comments SET ? WHERE postId = ? && id = ?',
@@ -245,8 +245,8 @@ app.put('/todos/:userId/:id', (req, res) => {
         title: req.body.title,
         completed: req.body.completed
     };
-    const userId = req.query.userId;
-    const id = req.query.id;
+    const userId = req.params.userId;
+    const id = req.params.id;
 
     con.query(
         'UPDATE todos SET ? WHERE userId = ? && id = ?',
