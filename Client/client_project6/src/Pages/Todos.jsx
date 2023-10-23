@@ -99,16 +99,18 @@ export default function Todos() {
 
     return (
         <>
-          <div>
-            <button onClick={toggleForm}>+ Add Todo </button>
+          <div className="divAddTodo">
             {isFormVisible && (
+            <>
               <form onSubmit={(e) => { handleClickAddTodo(e); close();}} className="formAddTodo">
                   <input type="checkbox" name="fcheckbox"/>
                   <label>Title: </label>
                   <input type="text" name="ftitle" />
                 <button type="submit">Submit</button>
               </form>
-            )}
+              <br></br>
+            </>)}
+            <button className="buttonAdd" onClick={toggleForm}>+ Add Todo </button>
           </div>
 
           <span>Sort By</span> <br></br>
@@ -139,35 +141,6 @@ export default function Todos() {
                 return <TodosSingle title={todo.title} completed={todo.completed} id={todo.id}/>
             })
           }  
-
-        
-          {/* {<div className="buttonItem">
-                <Popup trigger={<button className="iconbutt" >add todos</button>} model nested>
-                { close => (
-                        <div className=" divPopup">
-                            <div>
-                                <button onClick={() => close()}> X </button>
-                            </div>
-
-                            <div className=" formPopup">
-                                <form onSubmit={(e) => { handleClickAddTodo(e); close();}}>
-                                    <div className="input-container">
-                                        <h2>New Todo</h2>
-                                    </div>
-                                    <div className="input-container">
-                                        <label>Title: </label>
-                                        <input type="text" name="ftitle" placeholder={title} />
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    )
-                }
-                </Popup>
-                
-            </div> 
-            }    */}
-          
         </>
     )
 }

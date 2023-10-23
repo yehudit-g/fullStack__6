@@ -17,7 +17,6 @@
     background-color: rgb(247, 247, 247);
 }
 
-
 .divTodosSingleT {
     display: inline-flex;
     align-items:center;
@@ -37,4 +36,16 @@
     background-color: rgb(247, 247, 247);
 }
 
+.formAddTodo{
+    justify-content:center;
+    display: inline-flex;
+    align-items:center;
 
+    width: 800px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.divAddTodo{
+    border: 1px rgb(227, 227, 255) solid;
+}

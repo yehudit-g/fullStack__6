@@ -10,13 +10,21 @@
     display: inline-flex;
     flex-direction: row;
     margin: 5px;
-    height: 250px;
+    height: 300px;
     width: 47%;
     border:solid 2px rgb(0, 0, 0);
 }
 
 .divPost:hover {
     background-color: rgb(247, 247, 247);
+}
+
+#updateIcon{
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    border: 0;
+    background-color:transparent;
 }
 
 .divPostIcons *{
@@ -86,4 +94,8 @@
 .commentlink:hover {
     text-decoration: none;
     color: rgb(10, 42, 255);
+}
+
+.formUpdatePost{
+    justify-content:center;
 }

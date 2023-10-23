@@ -59,12 +59,8 @@ export default function CommentsSingle(props) {
     return (
         <>
             <div className="divPostComent">
-                <h3>{name}</h3> 
-                <p>{body}</p>
-                <p>{email}</p>
-                <button onClick={toggleForm}> <BsFillPencilFill /> </button>
-            </div>
-
+              <h3>{name}</h3> 
+            {!isFormVisible && (<p>{body}</p> )}
             <div>                
               {isFormVisible && (
                 <form onSubmit={(e) => { handleClickUpdate(e);}} className="formUpdatePost">
@@ -74,6 +70,11 @@ export default function CommentsSingle(props) {
                 </form>
               )}
             </div>
+                <p>{email}</p>
+                <button onClick={toggleForm}> <BsFillPencilFill /> </button>
+            </div>
+
+            
         </>
     )
 }

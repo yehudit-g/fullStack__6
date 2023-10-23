@@ -65,28 +65,33 @@ export default function PostSingle(props) {
     return (
         <>
         <div className="divPost">
-            <div className="divPostAlone">
+          <div className="divPostAlone">
+            {!isFormVisible && (
+              <>
                 <h3>{title}</h3> 
                 <p>{body}</p>
-                <button onClick={toggleForm}><BsFillPencilFill /></button>
+              </>
+            )}
 
-                <div className="divPostIcons">
-                        {/* <Link className="divPostIconsS"><BsBoxArrowUpLeft /></Link> */}
-                    <Link className="divPostIconsS" to={url}><BsChatDots /></Link>
-                </div>
+            <div className="divPostIcons">
+              <button id="updateIcon" onClick={toggleForm}><BsFillPencilFill/></button>
+              <Link className="divPostIconsS" to={url}><BsChatDots /></Link>
             </div>
-
-            <div>                
+            
+            <div>     
               {isFormVisible && (
                 <form onSubmit={(e) => { handleClickUpdate(e);}} className="formUpdatePost">
                   <label>Title: </label>
                   <input type="text" name="ftitle" placeholder={title}/>
+                  <br></br>
                   <label>Body: </label>
                   <input type="text" name="fbody" placeholder={body}/>
+                  <br></br>
                   <button type="submit">Submit</button>
                 </form>
               )}
             </div>
+          </div>
         </div>
         </>
     )
