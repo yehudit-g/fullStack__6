@@ -4,15 +4,19 @@ import PostSingle from "./PostSingle"
 export default function Post() {
 
     const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('currentUser')) ?? undefined)
-    const [listPost, setListPosts] = useState([])
     const [isFormVisible, setFormVisible] = useState(false);
+    const [listPost, setListPosts] = useState([])
+    const [refreshNeeded, setRefreshNeeded] = useState(false);
 
     const getPosts = async () => {
         try {
+            console.log(listPost);
             const response = await fetch('http://localhost:3000/posts?userId=' + currentUser.id);
             if (response.ok) {
               const jsonResponse = await response.json();
               setListPosts(jsonResponse);
+              console.log(jsonResponse);
+             // console.log(listPost);
             }
             else throw new Error('Request failed');
           } catch (error) {
@@ -24,6 +28,22 @@ export default function Post() {
         getPosts()
     }, [currentUser])
 
+    useEffect(() => {
+      console.log(listPost); // This will reflect the updated state.
+    }, [listPost]);
+  
+    useEffect(() => {
+      if (refreshNeeded) {
+        getPosts();
+        setRefreshNeeded(false); // Reset the refresh flag
+      }
+    }, [refreshNeeded]);
+
+    
+    const refreshPosts = () => {
+      setRefreshNeeded(true); // Set the refresh flag to trigger a refresh
+    }
+  
     const setPost = async (newPost) => {
       try {
         const response = await fetch('http://localhost:3000/posts', {
@@ -84,7 +104,8 @@ export default function Post() {
 
          {listPost &&
             listPost.map(post => {
-                return <PostSingle title={post.title} body={post.body} id={post.id}/>
+                return <PostSingle title={post.title} body={post.body} id={post.id} onUUpdate={refreshPosts} onUpdate={getPosts} // Pass the getPosts function as a callback
+                />
             })
          }
         </>

@@ -1,4 +1,4 @@
-import React, {useState } from "react"
+import React, {useEffect,useState } from "react"
 import { BsBoxArrowUpLeft, BsChatDots, BsFillPencilFill } from 'react-icons/bs';
 
 import "../../Css/Posts.css";
@@ -12,6 +12,12 @@ export default function PostSingle(props) {
     const [id, setId] = useState(props.id)
     const [url, setUrl] = useState(id + '/comments')
     const [isFormVisible, setFormVisible] = useState(false);
+
+
+    useEffect(() => {
+      console.log('PostSingle re-rendered with updated data');
+    }, [title, body]);
+
 
     const toggleForm = () => {
         setFormVisible(!isFormVisible);
@@ -50,15 +56,16 @@ export default function PostSingle(props) {
           });
           if (response.ok) {
             const jsonResponse = await response.json();
-            return jsonResponse;
-          }
+            toggleForm();
+            props.onUpdate();            // Call the callback function to refresh the posts
+           // return jsonResponse;
+          } else{
           throw new Error('Request failed');
+        }
         } catch (error) {
           console.log(error);
         }
-        
-        toggleForm()
-        //await getTodos()   רענון עמוד
+        //await getPosts()   רענון עמוד
       }
 
 
@@ -80,7 +87,7 @@ export default function PostSingle(props) {
             
             <div>     
               {isFormVisible && (
-                <form onSubmit={(e) => { handleClickUpdate(e);}} className="formUpdatePost">
+                <form onSubmit={(e) => { handleClickUpdate(e); }} className="formUpdatePost">
                   <label>Title: </label>
                   <input type="text" name="ftitle" placeholder={title}/>
                   <br></br>
