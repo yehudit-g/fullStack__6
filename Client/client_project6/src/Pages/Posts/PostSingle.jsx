@@ -1,5 +1,5 @@
 import React, {useEffect,useState } from "react"
-import { BsBoxArrowUpLeft, BsChatDots, BsFillPencilFill } from 'react-icons/bs';
+import { BsBoxArrowUpLeft, BsChatDots, BsFillPencilFill, BsTrash, BsTrash2, BsTrash2Fill, BsTrash3 } from 'react-icons/bs';
 
 import "../../Css/Posts.css";
 import {Link, Navigate} from "react-router-dom"
@@ -23,7 +23,23 @@ export default function PostSingle(props) {
         setFormVisible(!isFormVisible);
       };
   
-  
+//--delete--
+      const handleClickDelete = async (id) => {
+        try {
+          const response =  await fetch(`http://localhost:3000/posts/${id}`, {
+              method: "DELETE",
+              mode: "cors"
+          })
+          if (response.ok) {
+            const jsonResponse = await response.json();
+          }
+          else throw new Error('Request failed of delete todo');
+        } catch (error) {
+            console.log("Error:", error);
+        }
+         //await getPosts()   רענון עמוד
+      } 
+
       //--update--
       const handleClickUpdate = async (event)=>{
         event.preventDefault();
@@ -81,7 +97,8 @@ export default function PostSingle(props) {
             )}
 
             <div className="divPostIcons">
-              <button id="updateIcon" onClick={toggleForm}><BsFillPencilFill/></button>
+            <button id="updateIcon" className="divPostIconsS" onClick={handleClickDelete}><BsTrash3/></button>
+              <button id="updateIcon" className="divPostIconsS" onClick={toggleForm}><BsFillPencilFill/></button>
               <Link className="divPostIconsS" to={url}><BsChatDots /></Link>
             </div>
             

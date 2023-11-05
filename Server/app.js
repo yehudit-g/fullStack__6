@@ -261,7 +261,8 @@ app.put('/todos/:userId/:id', (req, res) => {
 //works! send id in params-> Path_Variables 
 app.delete('/users/:id', (req, res) => {
     con.query(
-        'DELETE FROM users WHERE id = ?',
+        'UPDATE users SET state=0 WHERE id=?',
+      //  'DELETE FROM users WHERE id = ?',
         [req.params.id],
         function (err, results) {
             res.send(results);
@@ -271,12 +272,20 @@ app.delete('/users/:id', (req, res) => {
 //works! send id in params-> Path_Variables 
 app.delete('/posts/:id', (req, res) => {
     con.query(
-        'DELETE FROM posts WHERE id = ?',
+        'UPDATE posts SET state=0 WHERE id=?',
+        //'DELETE FROM posts WHERE id = ?',
         [req.params.id],
         function (err, results) {
             res.send(results);
         }
     );
+    if (err) {
+        console.error('Error updating database:', err);
+        res.status(500).send('Database update error');
+    } else {
+        res.send(results);
+    }
+    console.log("delete in app")
 })
 
 //works! send postId and id in params-> Path_Variables 
