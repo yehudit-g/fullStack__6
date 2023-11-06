@@ -24,7 +24,7 @@ export default function PostSingle(props) {
       };
   
 //--delete--
-      const handleClickDelete = async (id) => {
+      const handleClickDelete = async () => {
         try {
           console.log(id)
           const response =  await fetch(`http://localhost:3000/posts/${id}`, {
