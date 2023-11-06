@@ -1,6 +1,6 @@
 import React, {useState } from "react"
 import "../../Css/Posts.css";
-import { BsFillPencilFill } from 'react-icons/bs';
+import { BsFillPencilFill, BsTrash3 } from 'react-icons/bs';
 
 
 export default function CommentsSingle(props) {
@@ -15,7 +15,24 @@ export default function CommentsSingle(props) {
     const toggleForm = () => {
         setFormVisible(!isFormVisible);
       };
-  
+
+      //--delete--
+      const handleClickDelete = async () => {
+        try {
+          console.log(id)
+          const response =  await fetch(`http://localhost:3000/posts/${postId}/comments/${id}`, {
+              method: "DELETE",
+              mode: "cors"
+          })
+          if (response.ok) {
+            const jsonResponse = await response.json();
+          }
+          else throw new Error('Request failed of delete comment');
+        } catch (error) {
+            console.log("Error:", error);
+        }
+         //await getPosts()   רענון עמוד
+      } 
 
       //--update--
       const handleClickUpdate = async (event)=>{
@@ -71,7 +88,10 @@ export default function CommentsSingle(props) {
               )}
             </div>
                 <p>{email}</p>
+                <div>
+                <button id="updateIcon" className="divPostIconsS" onClick={handleClickDelete}><BsTrash3/></button>
                 <button onClick={toggleForm}> <BsFillPencilFill /> </button>
+                </div>
             </div>
 
             

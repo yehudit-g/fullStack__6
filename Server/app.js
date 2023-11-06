@@ -276,8 +276,8 @@ app.delete('/posts/:id', (req, res) => {
         [req.params.id],
         function (err, results) {
             if (err) {
-                console.error('Error updating database:', err);
-                res.status(500).send('Database update error');
+                console.error('Error delete database:', err);
+                res.status(500).send('Database delete error');
             } else {
                 res.send(results);
             }
@@ -288,21 +288,32 @@ app.delete('/posts/:id', (req, res) => {
 //works! send postId and id in params-> Path_Variables 
 app.delete('/posts/:postId/comments/:id', (req, res) => {
     con.query(
-        'DELETE FROM comments WHERE postId = ? && id = ?',
+        'UPDATE comments SET state=0 WHERE postId = ? && id = ?',
         [req.params.postId, req.params.id],
         function (err, results) {
-            res.send(results);
+            if (err) {
+                console.error('Error delete database:', err);
+                res.status(500).send('Database delete error');
+            } else {
+                res.send(results);
+            }
         }
     );
 });
 
+
 //works! send id in params-> Path_Variables 
 app.delete('/todos/:id', (req, res) => {
     con.query(
-        'DELETE FROM todos WHERE id = ?',
+        'UPDATE todos SET state=0 WHERE id=?',
         [req.params.id],
         function (err, results) {
-            res.send(results);
+            if (err) {
+                console.error('Error delete database:', err);
+                res.status(500).send('Database delete error');
+            } else {
+                res.send(results);
+            }
         }
     );
 });

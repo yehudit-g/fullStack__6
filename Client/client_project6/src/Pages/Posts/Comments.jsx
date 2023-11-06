@@ -92,6 +92,7 @@ export default function Comments() {
         <Link className="commentlink" to={url}><BsArrowLeftCircle /></Link>
          {listComments &&
             listComments.map(comment => {
+              if(comment.state==1)
                 return <CommentsSingle name={comment.name} body={comment.body} email={comment.email} id={comment.id} postId={comment.postId}/>
             })
          }

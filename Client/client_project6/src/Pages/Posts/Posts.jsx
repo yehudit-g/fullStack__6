@@ -91,6 +91,7 @@ export default function Post() {
 
          {listPost &&
             listPost.map(post => {
+              if(post.state==1)
                 return <PostSingle title={post.title} body={post.body} id={post.id} onUpdate={getPosts} // Pass the getPosts function as a callback
                 />
             })

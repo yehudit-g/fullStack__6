@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import "../Css/Todos.css";
-import { BsFillPencilFill } from 'react-icons/bs';
+import { BsFillPencilFill , BsTrash3} from 'react-icons/bs';
 
 export default function TodosSingle(props) {
     const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('currentUser')) ?? undefined)
@@ -14,6 +14,24 @@ export default function TodosSingle(props) {
         setCompleted(!completed)
     }
    
+    //--delete--
+    const handleClickDelete = async () => {
+      try {
+        console.log(id)
+        const response =  await fetch(`http://localhost:3000/todos/${id}`, {
+            method: "DELETE",
+            mode: "cors"
+        })
+        if (response.ok) {
+          const jsonResponse = await response.json();
+        }
+        else throw new Error('Request failed of delete todo');
+      } catch (error) {
+          console.log("Error:", error);
+      }
+       //await getPosts()   רענון עמוד
+    } 
+
     //--update--
     const handleClickUpdate = async (event)=>{
       event.preventDefault();
@@ -74,7 +92,8 @@ export default function TodosSingle(props) {
               <>
                 <input type="checkBox" id="doneTodos" checked={completed} onClick={handleClick}/>
                 <label for="doneTodos">{title}</label>
-                <button onClick={toggleForm}> <BsFillPencilFill />  </button>
+                <><button onClick={toggleForm}> <BsFillPencilFill /></button>
+                <button id="updateIcon" className="divPostIconsS" onClick={handleClickDelete}><BsTrash3/></button></>
               </>
             )}
 

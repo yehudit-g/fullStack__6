@@ -1,5 +1,5 @@
 import React, {useEffect,useState } from "react"
-import { BsBoxArrowUpLeft, BsChatDots, BsFillPencilFill, BsTrash, BsTrash2, BsTrash2Fill, BsTrash3 } from 'react-icons/bs';
+import { BsBoxArrowUpLeft, BsChatDots, BsFillPencilFill, BsTrash3 } from 'react-icons/bs';
 
 import "../../Css/Posts.css";
 import {Link, Navigate} from "react-router-dom"
@@ -34,7 +34,7 @@ export default function PostSingle(props) {
           if (response.ok) {
             const jsonResponse = await response.json();
           }
-          else throw new Error('Request failed of delete todo');
+          else throw new Error('Request failed of delete post');
         } catch (error) {
             console.log("Error:", error);
         }

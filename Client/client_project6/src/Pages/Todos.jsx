@@ -126,18 +126,21 @@ export default function Todos() {
 
           {sortByField === 'arranged (id)' && listTodos && 
             listTodos.sort((a, b) => a["id"] > b["id"] ? 1 : -1).map(todo => {
+              if(todo.state==1)
                 return <TodosSingle title={todo.title} completed={todo.completed} id={todo.id}/>
             })
           }
 
           {sortByField === 'title' && listTodos && 
             listTodos.sort((a, b) => a["title"] > b["title"] ? 1 : -1).map(todo => {
+              if(todo.state==1)
                 return <TodosSingle title={todo.title} completed={todo.completed} id={todo.id}/>
             })
           }
 
           {sortByField === 'completed' && listTodos && 
             listTodos.sort((a, b) => a["completed"] > b["completed"] ? 1 : -1).map(todo => {
+              if(todo.state==1)
                 return <TodosSingle title={todo.title} completed={todo.completed} id={todo.id}/>
             })
           }  
