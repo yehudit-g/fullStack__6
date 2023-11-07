@@ -68,11 +68,11 @@ export default function Todos() {
     const handleClickAddTodo= async (event)=>{
       event.preventDefault();
       var {ftitle, fcheckbox} = document.forms[0];
-
+      
       const newTodo = {
       'userId': currentUser.id,
       'title': ftitle.value,
-      'complete': fcheckbox.value,
+      'complete': fcheckbox.checked,
       }
 
       let TodoData = await setTodo(newTodo);
