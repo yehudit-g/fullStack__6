@@ -159,7 +159,7 @@ app.post('/todos', (req, res) => {
         id: req.body.id,
         userId: req.body.userId,
         title: req.body.title,
-        completed: req.body.completed
+        complete: req.body.complete
     };
 
     con.query(
@@ -243,7 +243,7 @@ app.put('/todos/:userId/:id', (req, res) => {
         id: req.body.id,
         userId: req.body.userId,
         title: req.body.title,
-        completed: req.body.completed
+        complete: req.body.complete
     };
     const userId = req.params.userId;
     const id = req.params.id;

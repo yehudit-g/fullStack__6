@@ -4,7 +4,6 @@ import { BsFillPencilFill , BsTrash3} from 'react-icons/bs';
 
 export default function TodosSingle(props) {
     const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('currentUser')) ?? undefined)
-
     const [title, setTitle] = useState(props.title)
     const [completed, setCompleted] = useState(props.completed)
     const [id, setId] = useState(props.id)
@@ -45,13 +44,13 @@ export default function TodosSingle(props) {
         'id': id,
         'userId': currentUser.id,
         'title': fnewTitle,
-        'completed': newCompleted,
+        'complete': newCompleted,
       }
 
       console.log('id'+ id+
       'userId'+ currentUser.id+
       'title'+ fnewTitle+
-      'completed'+ newCompleted)
+      'complete'+ newCompleted)
 
       try {
         const response = await fetch(`http://localhost:3000/todos/${currentUser.id}/${id}`, {
@@ -90,7 +89,7 @@ export default function TodosSingle(props) {
           <div className={completed?  "divTodosSingleT": "divTodosSingleF"}>
             {!isFormVisible && (
               <>
-                <input type="checkBox" id="doneTodos" checked={completed} onClick={handleClick}/>
+                <input type="checkBox" id="doneTodos" checked={completed} onClick={handleClick} disabled/>
                 <label for="doneTodos">{title}</label>
                 <><button onClick={toggleForm}> <BsFillPencilFill /></button>
                 <button id="updateIcon" className="divPostIconsS" onClick={handleClickDelete}><BsTrash3/></button></>
