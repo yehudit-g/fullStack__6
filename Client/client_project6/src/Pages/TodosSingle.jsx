@@ -8,6 +8,7 @@ export default function TodosSingle(props) {
     const [completed, setCompleted] = useState(props.completed)
     const [id, setId] = useState(props.id)
     const [isFormVisible, setFormVisible] = useState(false);
+    const [update, setUpdate] = useState(props.update)
 
     const handleClick = () => {
         setCompleted(!completed)
@@ -28,7 +29,8 @@ export default function TodosSingle(props) {
       } catch (error) {
           console.log("Error:", error);
       }
-       //await getPosts()   רענון עמוד
+       
+       await update();
     } 
 
     //--update--
@@ -72,7 +74,7 @@ export default function TodosSingle(props) {
       }
       
       toggleForm()
-      //await getTodos()   רענון עמוד
+      await update();
     }
 
     const toggleForm = () => {

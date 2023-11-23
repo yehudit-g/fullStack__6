@@ -12,6 +12,7 @@ export default function PostSingle(props) {
     const [id, setId] = useState(props.id)
     const [url, setUrl] = useState(id + '/comments')
     const [isFormVisible, setFormVisible] = useState(false);
+    const [update, setUpdate] = useState(props.onUpdate);
 
 
     useEffect(() => {
@@ -38,7 +39,7 @@ export default function PostSingle(props) {
         } catch (error) {
             console.log("Error:", error);
         }
-         //await getPosts()   רענון עמוד
+         await update();
       } 
 
       //--update--
@@ -82,7 +83,7 @@ export default function PostSingle(props) {
         } catch (error) {
           console.log(error);
         }
-        //await getPosts()   רענון עמוד
+        await update();
       }
 
 

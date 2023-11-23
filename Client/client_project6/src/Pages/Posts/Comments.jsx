@@ -93,7 +93,7 @@ export default function Comments() {
          {listComments &&
             listComments.map(comment => {
               if(comment.state==1)
-                return <CommentsSingle name={comment.name} body={comment.body} email={comment.email} id={comment.id} postId={comment.postId}/>
+                return <CommentsSingle name={comment.name} body={comment.body} email={comment.email} id={comment.id} postId={comment.postId} update={getComments()}/>
             })
          }
         </>

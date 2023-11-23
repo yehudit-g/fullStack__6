@@ -10,6 +10,7 @@ export default function CommentsSingle(props) {
     const [isFormVisible, setFormVisible] = useState(false);
     const [id, setId] = useState(props.id)
     const [postId, setPostId] = useState(props.postId)
+    const [update, setUpdate] = useState(props.update);
 
 
     const toggleForm = () => {
@@ -31,7 +32,7 @@ export default function CommentsSingle(props) {
         } catch (error) {
             console.log("Error:", error);
         }
-         //await getPosts()   רענון עמוד
+         await update();
       } 
 
       //--update--
@@ -68,8 +69,8 @@ export default function CommentsSingle(props) {
           console.log(error);
         }
         
-        toggleForm()
-        //await getTodos()   רענון עמוד
+        toggleForm();
+        await update();
       }
 
     

@@ -76,15 +76,15 @@ export default function Todos() {
       }
 
       let TodoData = await setTodo(newTodo);
-      toggleForm()
-      await getTodos()
+      toggleForm();
+      await getTodos();
     }
 
     const toggleForm = () => {
       setFormVisible(!isFormVisible);
     };
     
-    
+
 
     return (
         <>
@@ -116,21 +116,21 @@ export default function Todos() {
           {sortByField === 'arranged (id)' && listTodos && 
             listTodos.sort((a, b) => a["id"] > b["id"] ? 1 : -1).map(todo => {
               if(todo.state==1)
-                return <TodosSingle title={todo.title} completed={todo.complete} id={todo.id}/>
+                return <TodosSingle title={todo.title} completed={todo.complete} id={todo.id} update={getTodos()}/>
             })
           }
 
           {sortByField === 'title' && listTodos && 
             listTodos.sort((a, b) => a["title"] > b["title"] ? 1 : -1).map(todo => {
               if(todo.state==1)
-                return <TodosSingle title={todo.title} completed={todo.complete} id={todo.id}/>
+                return <TodosSingle title={todo.title} completed={todo.complete} id={todo.id} update={getTodos()}/>
             })
           }
 
           {sortByField === 'completed' && listTodos && 
             listTodos.sort((a, b) => a["completed"] > b["completed"] ? 1 : -1).map(todo => {
               if(todo.state==1)
-                return <TodosSingle title={todo.title} completed={todo.complete} id={todo.id}/>
+                return <TodosSingle title={todo.title} completed={todo.complete} id={todo.id} update={getTodos()}/>
             })
           }  
         </>
