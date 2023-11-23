@@ -1,14 +1,15 @@
 .divTodosSingleF {
     display: inline-flex;
     align-items:center;
-    justify-content:center;
+    justify-content:left;
     text-align: center;
     flex-direction: row;
-    padding: 10px;
-    margin: 10px;
-    border:solid 2px rgb(237, 0, 0);
+    padding: 10px 40px;
+    margin: 10px 210px;
+    border:solid 2px rgb(95, 173, 169);
+    border-radius: 50px;
     height: 50px;
-    width: 46%;
+    width: 60%;
     font-size: large;
     font-weight:500;
 }
@@ -20,14 +21,15 @@
 .divTodosSingleT {
     display: inline-flex;
     align-items:center;
-    justify-content:center;
-    text-align: center;
+    justify-content:left;
+    text-align: left;
     flex-direction: row;
-    padding: 10px;
-    margin: 10px;
-    border:solid 2px rgb(0, 146, 19);
+    padding: 10px 40px;
+    margin: 10px 210px;
+    border:solid 2px rgb(116, 95, 148);
+    border-radius: 50px;
     height: 50px;
-    width: 46%;
+    width: 60%;
     font-size: large;
     font-weight:500;
 }
@@ -36,16 +38,35 @@
     background-color: rgb(247, 247, 247);
 }
 
-.formAddTodo{
+.divAddTodo{
+    border: 1px rgb(227, 227, 255) solid;
     justify-content:center;
-    display: inline-flex;
     align-items:center;
-
-    width: 800px;
+    width: 100%;
     margin-right: auto;
     margin-left: auto;
 }
 
-.divAddTodo{
-    border: 1px rgb(227, 227, 255) solid;
+.buttonAdd{
+    width: 120px;
+    height: 50px;
+    margin: 10px 40px;
+    font-size: large;
+}
+
+.formAddTodo{
+    justify-content:center;
+    display: inline-flex;
+    align-items:center;
+    flex-direction: row;
+
+}
+
+.divSort{
+    margin: 20px 40px 5px 40px;
+}
+
+
+.updateDel{
+    margin-right: 50px;
 }

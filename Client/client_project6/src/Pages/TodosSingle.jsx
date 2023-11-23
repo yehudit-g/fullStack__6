@@ -91,10 +91,13 @@ export default function TodosSingle(props) {
           <div className={completed?  "divTodosSingleT": "divTodosSingleF"}>
             {!isFormVisible && (
               <>
+                <div className="updateDel">
+                  <button id="updateIcon" className="divPostIconsS" onClick={handleClickDelete}><BsTrash3/></button>
+                  <button onClick={toggleForm}> <BsFillPencilFill /></button>
+                </div>
                 <input type="checkBox" id="doneTodos" checked={completed} onClick={handleClick} disabled/>
                 <label for="doneTodos">{title}</label>
-                <><button onClick={toggleForm}> <BsFillPencilFill /></button>
-                <button id="updateIcon" className="divPostIconsS" onClick={handleClickDelete}><BsTrash3/></button></>
+                
               </>
             )}
 

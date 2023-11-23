@@ -89,6 +89,7 @@ export default function Todos() {
     return (
         <>
           <div className="divAddTodo">
+          <button className="buttonAdd" onClick={toggleForm}>+ Add Todo </button>
             {isFormVisible && (
             <>
               <form onSubmit={(e) => { handleClickAddTodo(e); close();}} className="formAddTodo">
@@ -99,9 +100,9 @@ export default function Todos() {
               </form>
               <br></br>
             </>)}
-            <button className="buttonAdd" onClick={toggleForm}>+ Add Todo </button>
           </div>
 
+          <div className="divSort">
           <span>Sort By</span> <br></br>
           <select defaultValue={'arranged (id)'} onChange={(e) => sortBy(e.target.value)}>
             <option value="arranged (id)" disabled>None</option>
@@ -110,7 +111,8 @@ export default function Todos() {
             <option value="completed">Completed</option>
           </select>
           <br></br>
-          
+          </div>
+
           {console.log('==============================')}
 
           {sortByField === 'arranged (id)' && listTodos && 

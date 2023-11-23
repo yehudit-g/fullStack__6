@@ -1,3 +1,8 @@
+*{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+
 .mainNav {
     height: 60px;
     background-color: aliceblue;

@@ -39,12 +39,11 @@
 
 .divPostIconsS:hover {
     text-decoration: none;
-    color: rgb(10, 42, 255);
+    color: rgb(116, 95, 148);
 }
 
 .divPostAlone h3 {
-    color: blue;
-}
+    color: rgb(90, 29, 180);}
 
 .divPostAlone * {
     padding: 10px 15px;
@@ -53,6 +52,33 @@
 .divPostAlone p {
     padding: 10px 35px;
 }
+
+
+.divAddPost{
+    border: 1px rgb(227, 227, 255) solid;
+    justify-content:center;
+    align-items:center;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.buttonAdd{
+    width: 120px;
+    height: 50px;
+    margin: 10px 40px;
+    font-size: large;
+}
+
+.formAddPost{
+    justify-content:center;
+    display: inline-flex;
+    align-items:center;
+    flex-direction: row;
+
+}
+
+
 
 .divPostComent {
     display: inline-flex;
@@ -93,7 +119,7 @@
 
 .commentlink:hover {
     text-decoration: none;
-    color: rgb(10, 42, 255);
+    color: rgb(116, 95, 148);
 }
 
 .formUpdatePost{

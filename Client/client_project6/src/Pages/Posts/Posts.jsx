@@ -76,8 +76,8 @@ export default function Post() {
 
     return (
         <>
-          <div>
-            <button onClick={toggleForm}>+ Add Post </button>
+          <div className="divAddPost">
+            <button className="buttonAdd" onClick={toggleForm}>+ Add Post </button>
             {isFormVisible && (
               <form onSubmit={(e) => { handleClickAddPost(e); close();}} className="formAddPost">
                   <label>Title: </label>
