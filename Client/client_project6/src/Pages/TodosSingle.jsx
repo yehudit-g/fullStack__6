@@ -10,6 +10,10 @@ export default function TodosSingle(props) {
     const [isFormVisible, setFormVisible] = useState(false);
     const [update, setUpdate] = useState(props.update)
 
+    useEffect(() => {
+      console.log("isFormVisible:   "+ isFormVisible)
+    }, [isFormVisible]);
+
     const handleClick = () => {
         setCompleted(!completed)
     }
@@ -33,6 +37,29 @@ export default function TodosSingle(props) {
        await update();
     } 
 
+const updateTodo= async(newTodo)=>{
+  try {
+    const response = await fetch(`http://localhost:3000/todos/${currentUser.id}/${id}`, {
+      method: "PUT",
+      mode: "cors",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newTodo),
+    });
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse;
+    }
+    throw new Error('Request failed');
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(error);
+
+  }
+}
+
     //--update--
     const handleClickUpdate = async (event)=>{
       event.preventDefault();
@@ -49,33 +76,34 @@ export default function TodosSingle(props) {
         'complete': newCompleted,
       }
 
-      console.log('id'+ id+
-      'userId'+ currentUser.id+
-      'title'+ fnewTitle+
-      'complete'+ newCompleted)
+          
+  try {
+    // Update the todo and wait for it to complete
+    const updatedTodo = await updateTodo(newTodo);
 
-      try {
-        const response = await fetch(`http://localhost:3000/todos/${currentUser.id}/${id}`, {
-          method: "PUT",
-          mode: "cors",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(newTodo),
-        });
-        if (response.ok) {
-          const jsonResponse = await response.json();
-          return jsonResponse;
-        }
-        throw new Error('Request failed');
-      } catch (error) {
-        console.log(error);
-      }
-      
-      toggleForm()
-      await update();
+    // Check if the update was successful
+    if (updatedTodo) {
+      // If successful, toggle the form and then update props
+      toggleForm();
+      await props.update();
+    } else {
+      console.error('Update failed'); // Log an error if the updateTodo didn't return expected data
     }
+  } catch (error) {
+    console.error('Error updating todo:', error);
+  }
+
+
+    //   console.log('id'+ id+'userId'+ currentUser.id+'title'+ fnewTitle+'complete'+ newCompleted)
+    //   await Promise.resolve(updateTodo(newTodo));
+
+    //   //await updateTodo(newTodo);  //Server update function
+
+    //   console.log("update todo succes");
+
+    //   toggleForm();
+    //   await props.update();
+     }
 
     const toggleForm = () => {
       setFormVisible(!isFormVisible);
@@ -102,7 +130,7 @@ export default function TodosSingle(props) {
             )}
 
             <div>                
-              {isFormVisible && (
+              {isFormVisible && (<>
                 <form onSubmit={(e) => { handleClickUpdate(e);}} className="formUpdateTodo">
                   <input type="checkbox" name="fcheckbox" placeholder={completed} checked={completed}
                       onChange={(e) => handleCheckboxChange(e)} />
@@ -110,7 +138,7 @@ export default function TodosSingle(props) {
                   <input type="text" name="ftitle" placeholder={title}/>
                   <button type="submit">Submit</button>
                 </form>
-              )}
+                </>)}
               </div>
           </div>
         </>

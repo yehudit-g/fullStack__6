@@ -10,6 +10,7 @@ export default function Todos() {
     const [listTodos, setListTodos] = useState([])
     const [isFormVisible, setFormVisible] = useState(false);
     const [sortByField, setSortByField] = useState("arranged (id)");
+    const [isLoading, setIsLoading] = useState(false);
 
     const sortFunc = (a, b) => {
       debugger
@@ -29,17 +30,28 @@ export default function Todos() {
 
     const getTodos = async () => {
         try {
+          setIsLoading(true);
+
           const response = await fetch('http://localhost:3000/todos?userId=' + currentUser.id);
           if (response.ok) {
             const jsonResponse = await response.json();
             setListTodos(jsonResponse);
+            console.log(listTodos)
+            console.log(jsonResponse)
           }
           else throw new Error('Request failed');
         } catch (error){
           console.log(error);
+        }finally {
+          setIsLoading(false);
         }
+        console.log("### getTodos ###"+listTodos[0].title)
     }
 
+    useEffect(() => {
+      // Your logic here, using the updated listTodos
+      console.log(listTodos);
+    }, [listTodos]);
     useEffect(() => {
       getTodos()
     }, [currentUser])
@@ -84,7 +96,9 @@ export default function Todos() {
       setFormVisible(!isFormVisible);
     };
     
-
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
 
     return (
         <>
@@ -118,21 +132,21 @@ export default function Todos() {
           {sortByField === 'arranged (id)' && listTodos && 
             listTodos.sort((a, b) => a["id"] > b["id"] ? 1 : -1).map(todo => {
               if(todo.state==1)
-                return <TodosSingle title={todo.title} completed={todo.complete} id={todo.id} update={getTodos()}/>
+                return <TodosSingle key={todo.id} title={todo.title} completed={todo.complete} id={todo.id} update={getTodos}/>
             })
           }
 
           {sortByField === 'title' && listTodos && 
             listTodos.sort((a, b) => a["title"] > b["title"] ? 1 : -1).map(todo => {
               if(todo.state==1)
-                return <TodosSingle title={todo.title} completed={todo.complete} id={todo.id} update={getTodos()}/>
+                return <TodosSingle key={todo.id} title={todo.title} completed={todo.complete} id={todo.id} update={getTodos}/>
             })
           }
 
           {sortByField === 'completed' && listTodos && 
             listTodos.sort((a, b) => a["completed"] > b["completed"] ? 1 : -1).map(todo => {
               if(todo.state==1)
-                return <TodosSingle title={todo.title} completed={todo.complete} id={todo.id} update={getTodos()}/>
+                return <TodosSingle key={todo.id} title={todo.title} completed={todo.complete} id={todo.id} update={getTodos}/>
             })
           }  
         </>
