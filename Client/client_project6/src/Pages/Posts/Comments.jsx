@@ -12,17 +12,22 @@ export default function Comments() {
     const [url, setUrl] = useState('../posts')
 
     const getComments = async () => {
-        try {
-          const response = await fetch(`http://localhost:3000/posts/${idPost}/comments`);
-          if (response.ok) {
-              const jsonResponse = await response.json();
-              setListComments(jsonResponse);
-            }
-            else throw new Error('Request failed');
-          } catch (error) {
-            console.log(error);
+      console.log("entered in getComments Function");
+      try {
+        const response = await fetch(`http://localhost:3000/posts/${idPost}/comments`);
+        if (response.ok) {
+            const jsonResponse = await response.json();
+            setListComments(jsonResponse);
+            console.log("comments setted");
           }
+          else throw new Error('Request failed');
+      } catch (error) {
+        console.log(error);
+      }
     }
+    useEffect(() => {
+      console.log(listComments);
+    }, [listComments]);
 
     useEffect(() => {
         getComments()
@@ -93,7 +98,8 @@ export default function Comments() {
          {listComments &&
             listComments.map(comment => {
               if(comment.state==1)
-                return <CommentsSingle name={comment.name} body={comment.body} email={comment.email} id={comment.id} postId={comment.postId} update={getComments()}/>
+                return <CommentsSingle name={comment.name} body={comment.body} email={comment.email} 
+                id={comment.id} postId={comment.postId} update={getComments}/>
             })
          }
         </>

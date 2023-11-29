@@ -12,7 +12,6 @@ export default function PostSingle(props) {
     const [id, setId] = useState(props.id)
     const [url, setUrl] = useState(id + '/comments')
     const [isFormVisible, setFormVisible] = useState(false);
-    const [update, setUpdate] = useState(props.onUpdate);
 
 
     useEffect(() => {
@@ -39,7 +38,7 @@ export default function PostSingle(props) {
         } catch (error) {
             console.log("Error:", error);
         }
-         await update();
+        await props.update();
       } 
 
       //--update--
@@ -75,15 +74,16 @@ export default function PostSingle(props) {
           if (response.ok) {
             const jsonResponse = await response.json();
             toggleForm();
-            props.onUpdate();            // Call the callback function to refresh the posts
-           // return jsonResponse;
+            console.log("call update function");
+            await props.update();
+            console.log("update called");
           } else{
           throw new Error('Request failed');
         }
         } catch (error) {
           console.log(error);
         }
-        await update();
+        
       }
 
 
