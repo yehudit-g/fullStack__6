@@ -36,8 +36,6 @@ export default function Todos() {
           if (response.ok) {
             const jsonResponse = await response.json();
             setListTodos(jsonResponse);
-            console.log(listTodos)
-            console.log(jsonResponse)
           }
           else throw new Error('Request failed');
         } catch (error){
@@ -45,13 +43,13 @@ export default function Todos() {
         }finally {
           setIsLoading(false);
         }
-        console.log("### getTodos ###"+listTodos[0].title)
     }
 
     useEffect(() => {
       // Your logic here, using the updated listTodos
       console.log(listTodos);
     }, [listTodos]);
+    
     useEffect(() => {
       getTodos()
     }, [currentUser])

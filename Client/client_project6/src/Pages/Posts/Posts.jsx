@@ -9,17 +9,18 @@ export default function Post() {
     const [initialData, setInitialData] = useState([]);
 
     const getPosts = async () => {
-        try {
-            console.log(listPost);
-            const response = await fetch('http://localhost:3000/posts?userId=' + currentUser.id);
-            if (response.ok) {
-              const jsonResponse = await response.json();
-              setListPosts(jsonResponse);
-            }
-            else throw new Error('Request failed');
-          } catch (error) {
-            console.log(error);
-          }
+      try {
+        console.log(listPost);
+        const response = await fetch('http://localhost:3000/posts?userId=' + currentUser.id);
+        if (response.ok) {
+          const jsonResponse = await response.json();
+          setListPosts(jsonResponse);
+          console.log("list post setted");
+        }
+        else throw new Error('Request failed');
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     useEffect(() => {
@@ -93,7 +94,7 @@ export default function Post() {
          {listPost &&
             listPost.map(post => {
               if(post.state==1)
-                return <PostSingle title={post.title} body={post.body} id={post.id} onUpdate={getPosts()} // Pass the getPosts function as a callback
+                return <PostSingle title={post.title} body={post.body} id={post.id} update={getPosts} // Pass the getPosts function as a callback
                 />
             })
          }
