@@ -55,8 +55,6 @@ export default function TodosSingle(props) {
       else throw new Error('Request failed');
     } catch (error) {
       console.log(error);
-      return Promise.reject(error);
-
     }
   }
 
@@ -75,7 +73,6 @@ export default function TodosSingle(props) {
         'title': fnewTitle,
         'complete': newCompleted,
       }
-
           
       try {
         // Update the todo and wait for it to complete

@@ -7,10 +7,12 @@ export default function Post() {
     const [isFormVisible, setFormVisible] = useState(false);
     const [listPost, setListPosts] = useState([])
     const [initialData, setInitialData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const getPosts = async () => {
       try {
-        console.log(listPost);
+        setIsLoading(true);
+
         const response = await fetch('http://localhost:3000/posts?userId=' + currentUser.id);
         if (response.ok) {
           const jsonResponse = await response.json();
@@ -20,6 +22,8 @@ export default function Post() {
         else throw new Error('Request failed');
       } catch (error) {
         console.log(error);
+      }finally {
+        setIsLoading(false);
       }
     }
 
@@ -27,9 +31,9 @@ export default function Post() {
         getPosts()
     }, [currentUser])
 
-    useEffect(() => {
-      console.log(listPost); // This will reflect the updated state.
-    }, [listPost]);
+    // useEffect(() => {
+    //   console.log(listPost); // This will reflect the updated state.
+    // }, [listPost]);
 
     
     const setPost = async (newPost) => {
@@ -74,6 +78,9 @@ export default function Post() {
     };
 
 
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
 
     return (
         <>

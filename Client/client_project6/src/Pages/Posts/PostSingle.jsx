@@ -41,6 +41,27 @@ export default function PostSingle(props) {
         await props.update();
       } 
 
+      const updatePost=async(newPost)=>{
+        try {
+          const response = await fetch(`http://localhost:3000/posts/${id}`, {
+            method: "PUT",
+            mode: "cors",
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newPost),
+          });
+          if (response.ok) {
+            const jsonResponse = await response.json();
+            return jsonResponse;
+          }
+          else throw new Error('Request failed');
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
       //--update--
       const handleClickUpdate = async (event)=>{
         event.preventDefault();
@@ -55,35 +76,22 @@ export default function PostSingle(props) {
           'title': fnewTitle,
           'body': fnewBody,
         }
-  
-        console.log('id'+ id+
-        'userId'+ currentUser.id+
-        'title'+ fnewTitle+
-        'body'+ fnewBody)
-  
+
         try {
-          const response = await fetch(`http://localhost:3000/posts/${id}`, {
-            method: "PUT",
-            mode: "cors",
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newPost),
-          });
-          if (response.ok) {
-            const jsonResponse = await response.json();
+          // Update the post and wait for it to complete
+          const updatedPost = await updatePost(newPost);
+  
+          // Check if the update was successful
+          if (updatedPost) {
+            // If successful, toggle the form and then update props
             toggleForm();
-            console.log("call update function");
             await props.update();
-            console.log("update called");
-          } else{
-          throw new Error('Request failed');
-        }
+          } else {
+            console.error('Update failed'); // Log an error if the updateTodo didn't return expected data
+          }
         } catch (error) {
-          console.log(error);
+          console.error('Error updating post:', error);
         }
-        
       }
 
 

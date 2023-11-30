@@ -8,12 +8,21 @@ var mysql = require('mysql2');
 //   password: "bontravail!" //"yehudit_db"
 // });
 
+// var conn = mysql.createConnection({
+//   host: "localhost",
+//   port: 3306,
+//   user: "root",
+//   database: "project6",
+//   password: "bontravail!"
+// });
+
+
 var conn = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
   database: "project6",
-  password: "bontravail!"
+  password: "yehudit_db"
 });
 
 conn.connect(function(err) {

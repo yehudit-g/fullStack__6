@@ -8,26 +8,29 @@ export default function Comments() {
     const [listComments, setListComments] = useState([])
     const {idPost} = useParams()
     const [isFormVisible, setFormVisible] = useState(false);
-
+    const [isLoading, setIsLoading] = useState(false);
     const [url, setUrl] = useState('../posts')
 
     const getComments = async () => {
-      console.log("entered in getComments Function");
       try {
+        setIsLoading(true);
+
         const response = await fetch(`http://localhost:3000/posts/${idPost}/comments`);
         if (response.ok) {
             const jsonResponse = await response.json();
             setListComments(jsonResponse);
-            console.log("comments setted");
           }
           else throw new Error('Request failed');
       } catch (error) {
         console.log(error);
+      }finally {
+        setIsLoading(false);
       }
     }
-    useEffect(() => {
-      console.log(listComments);
-    }, [listComments]);
+
+    // useEffect(() => {
+    //   console.log(listComments);
+    // }, [listComments]);
 
     useEffect(() => {
         getComments()
@@ -74,7 +77,10 @@ export default function Comments() {
       setFormVisible(!isFormVisible);
     };
 
-
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
+    
     return (
         <>
           <div>

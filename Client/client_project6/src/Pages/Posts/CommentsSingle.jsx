@@ -34,6 +34,27 @@ export default function CommentsSingle(props) {
   } 
 
   //--update--
+  const updateComment= async(newComment) => {
+    try {
+      const response = await fetch(`http://localhost:3000/posts/${postId}/comments/${id}`, {
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newComment),
+      });
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        return jsonResponse;
+      }
+      else throw new Error('Request failed');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const handleClickUpdate = async (event)=>{
     event.preventDefault();
     var {fbody} = document.forms[0];
@@ -49,27 +70,23 @@ export default function CommentsSingle(props) {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/posts/${postId}/comments/${id}`, {
-        method: "PUT",
-        mode: "cors",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newComment),
-      });
-      if (response.ok) {
-        const jsonResponse = await response.json();
+      // Update the comment and wait for it to complete
+      const updatedComment = await updateComment(newComment);
+
+      // Check if the update was successful
+      if (updatedComment) {
+        // If successful, toggle the form and then update props
+        toggleForm();
+        await props.update();
+      } else {
+        console.error('Update failed'); // Log an error if the updateTodo didn't return expected data
       }
-      else throw new Error('Request failed');
     } catch (error) {
-      console.log(error);
+      console.error('Error updating comment:', error);
     }
-    await props.update();
-    toggleForm();
   }
 
-    
+
   return (
     <>
       <div className="divPostComent">

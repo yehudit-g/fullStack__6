@@ -44,11 +44,6 @@ export default function Todos() {
           setIsLoading(false);
         }
     }
-
-    useEffect(() => {
-      // Your logic here, using the updated listTodos
-      console.log(listTodos);
-    }, [listTodos]);
     
     useEffect(() => {
       getTodos()
